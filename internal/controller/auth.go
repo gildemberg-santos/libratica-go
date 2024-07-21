@@ -21,6 +21,8 @@ type Claims struct {
 type AuthRequest struct {
 	ClientID string `json:"client_id"`
 	SecretID string `json:"secret_id"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 func AuthMiddleware(c *gin.Context) {
@@ -61,6 +63,14 @@ func Auth(c *gin.Context) {
 	if authRequest.ClientID != credential.ClientID || authRequest.SecretID != credential.SecretID {
 		c.JSON(401, gin.H{
 			"message": "Invalid client_id or secret_id",
+		})
+		c.Abort()
+		return
+	}
+
+	if authRequest.Username != os.Getenv("USERNAME") || authRequest.Password != os.Getenv("PASSWORD") {
+		c.JSON(401, gin.H{
+			"message": "Invalid username or password",
 		})
 		c.Abort()
 		return
