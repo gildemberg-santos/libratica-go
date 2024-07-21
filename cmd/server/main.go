@@ -1,14 +1,16 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+	"log"
+
+	initialize "github.com/gildemberg-santos/libratica-go/internal/init"
 )
 
+func init() {
+	initialize.Run()
+}
+
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, World! (Server)")
-	})
-	fmt.Println("Server is running on http://localhost:8080")
-	http.ListenAndServe(":8080", nil)
+	log.Println("Server is running on http://localhost:8080")
+	log.Println("Press Ctrl + C to stop the server")
 }
