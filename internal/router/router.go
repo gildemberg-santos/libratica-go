@@ -24,5 +24,6 @@ func (r *Router) Run() {
 	r.Route.POST("/login", controller.Auth)
 	r.setting()
 	// TODO: Implement the other routes
+	r.Route.GET("/test", controller.Test)
 	r.Route.Run()
 }
